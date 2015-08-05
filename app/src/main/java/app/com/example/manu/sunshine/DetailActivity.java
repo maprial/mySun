@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,14 @@ public class DetailActivity extends ActionBarActivity {
         public PlaceholderFragment() {
         }
 
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+          //  super.onCreate(savedInstanceState);
+
+            setHasOptionsMenu(true);
+        }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -76,6 +85,15 @@ public class DetailActivity extends ActionBarActivity {
 
 
             return rootView;
+        }
+
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+
+
+            super.onCreateOptionsMenu(menu, inflater);
         }
     }
 }
