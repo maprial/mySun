@@ -2,8 +2,11 @@ package app.com.example.manu.sunshine;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,13 +60,18 @@ public class DetailActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        private static final String LOG_TAG = PlaceholderFragment.class.getSimpleName();
+
+        private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
+      private String mForecastStr;
+
         public PlaceholderFragment() {
         }
 
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
-          //  super.onCreate(savedInstanceState);
+            super.onCreate(savedInstanceState);
 
             setHasOptionsMenu(true);
         }
@@ -74,13 +82,13 @@ public class DetailActivity extends ActionBarActivity {
 
             Bundle myExtras = getActivity().getIntent().getExtras();
 
-            String detailText = myExtras.getString("MESSAGE");
+            mForecastStr = myExtras.getString("MESSAGE");
 
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
             TextView detailTextView = (TextView)rootView.findViewById(R.id.text_detail);
 
-            detailTextView.setText(detailText);
+            detailTextView.setText( mForecastStr);
 
 
 
@@ -91,9 +99,34 @@ public class DetailActivity extends ActionBarActivity {
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
+inflater.inflate(R.menu.detailfragment,menu);
 
+            // Retrieve the share menu item
+         MenuItem menuItem = menu.findItem(R.id.action_share);
+
+           // Get the provider and hold onto it to set/change the share intent.
+            ShareActionProvider mShareActionProvider =
+          (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+
+          // Attach an intent to this ShareActionProvider.  You can update this at any time,
+            // like when the user selects a new piece of data they might like to share.
+          if (mShareActionProvider != null ) {
+           mShareActionProvider.setShareIntent(createShareForecastIntent());
+            } else {
+                                Log.d(LOG_TAG, "Share Action Provider is null?");
+                            }
 
             super.onCreateOptionsMenu(menu, inflater);
         }
+
+
+        private Intent createShareForecastIntent() {
+                       Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                      //  shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_TEXT,
+                                        mForecastStr + FORECAST_SHARE_HASHTAG);
+                       return shareIntent;
+                    }
     }
 }
