@@ -1,5 +1,6 @@
 package app.com.example.manu.sunshine;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -13,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -74,6 +76,20 @@ public class ForecastFragment extends Fragment {
         ListView miListView = (ListView)rootView.findViewById(R.id.listView_forecast);
 
         miListView.setAdapter( mForecastAdapter);
+
+
+
+
+        miListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                String forecast = mForecastAdapter.getItem(position);
+            Intent goToDetail = new Intent(getActivity(),DetailActivity.class);
+                goToDetail.putExtra("MESSAGE",forecast);
+                startActivity(goToDetail);
+            }
+        });
 
 // si quiero que me cargue los datos directamente y no al darle a erfresh
      //   new FetchWeatherTask().execute("94043");
