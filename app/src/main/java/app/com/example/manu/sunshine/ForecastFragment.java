@@ -115,7 +115,7 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
     private void updateWeather() {
-               FetchWeatherTask weatherTask = new FetchWeatherTask();
+        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity(), mForecastAdapter);
                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                String location = prefs.getString(getString(R.string.pref_location_key),
                                 getString(R.string.pref_location_default));
@@ -128,7 +128,7 @@ public class ForecastFragment extends Fragment {
             }
 
 
-
+/*
     public class FetchWeatherTask extends AsyncTask<String,Void,String[]>{
 
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
@@ -143,9 +143,9 @@ public class ForecastFragment extends Fragment {
 
 
 
-        /**
-         * Prepare the weather high/lows for presentation.
-         */
+
+         //Prepare the weather high/lows for presentation.
+
         private String formatHighLows(double high, double low) {
             // For presentation, assume the user doesn't care about tenths of a degree.
             long roundedHigh = Math.round(high);
@@ -155,7 +155,7 @@ public class ForecastFragment extends Fragment {
             return highLowStr;
         }
 
-
+*/
         /**
          * Take the String representing the complete forecast in JSON Format and
          * pull out the data we need to construct the Strings needed for the wireframes.
@@ -163,7 +163,7 @@ public class ForecastFragment extends Fragment {
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
          */
-        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
+   /*     private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
                 throws JSONException {
 
             // These are the names of the JSON objects that need to be extracted.
@@ -302,6 +302,7 @@ public class ForecastFragment extends Fragment {
 
 
                 URL url = new URL(builtUri.toString());
+                */
 
 /*
 String maxi="";
@@ -317,7 +318,7 @@ String maxi="";
                     e.printStackTrace();
                 }
 */
-                Log.v(LOG_TAG, "Built URI " + builtUri.toString());
+        /*        Log.v(LOG_TAG, "Built URI " + builtUri.toString());
 
                 //falta incluir el retardo por ejemplo http://developer.android.com/training/basics/network-ops/connecting.html (setReadTimeout,setConnectTimeout)
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -421,13 +422,13 @@ String maxi="";
            // super.onPostExecute(strings);
 
          //   View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
+*/
          /*   mForecastAdapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_forecast,R.id.list_item_forecast_textview,myArray);
 
             ListView miListView = (ListView)getActivity().findViewById(R.id.listView_forecast);
 
             miListView.setAdapter(mForecastAdapter);*/
-
+/*
             if (result != null) {
                                mForecastAdapter.clear();
                                 for(String dayForecastStr : result) {
@@ -436,7 +437,7 @@ String maxi="";
                                 // New data is back from the server.  Hooray!
                                     }
         }
-    }
+    }*/
 
 
 
